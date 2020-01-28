@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,10 @@ namespace PuroRecheio.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(c => c.AddPolicy("*", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
             services.AddControllers();
             services.AddScoped<IProdutosDataAccess, ProdutosDataAccess>();
         }
@@ -40,6 +45,7 @@ namespace PuroRecheio.WebAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseCors("*");
 
             app.UseEndpoints(endpoints =>
             {
