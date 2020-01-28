@@ -16,7 +16,8 @@ namespace PuroRecheio.WebAPI.Infra
     {
         public async Task<IEnumerable<ProdutosViewModel>> RecuperarProdutos()
         {
-            const string sql = @"SELECT  Sabor, 
+            const string sql = @"SELECT  Id,
+                                         Sabor, 
                                          Tamanho, 
                                          Imagem, 
                                          Preco AS Valor 
